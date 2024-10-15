@@ -16,9 +16,18 @@ const TrendingProducts = () => {
 
             {/* Products card */}
             <div className="mt-12">
-                <ProductCards products={products} />
+                <ProductCards products={products.slice(0, visibleProducts)} />
             </div>
 
+            {/* Load more products btn */}
+            <div className='product__btn'>
+                {
+                    visibleProducts < products.length && (
+                        <button className='btn' onClick={loadMoreProducts}>Load More</button>
+                    )
+                }
+
+            </div>
 
         </section>
     )
