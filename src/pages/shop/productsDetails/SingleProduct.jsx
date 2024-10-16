@@ -47,7 +47,11 @@ const SingleProduct = () => {
                         </button>
                     </div>
                 </div>
+            </section>
 
+            {/* Display Reviews */}
+            <section className='section__container mt-8'>
+                Reviews Here
             </section>
         </>
     )
