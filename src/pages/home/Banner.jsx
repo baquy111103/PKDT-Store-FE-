@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import bannerImg from "../../assets/all.png"
+import bannerImg from "../../assets/bannermain.png"
 
 const Banner = () => {
     return (
@@ -12,7 +12,7 @@ const Banner = () => {
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis sequi, optio eius, neque consequatur dicta quibusdam commodi omnis quod corporis praesentium velit placeat assumenda voluptate rerum consequuntur aspernatur quia perferendis.</p>
                 <button className='btn'><Link to='/shop'>EXPLORE NOW</Link></button>
             </div>
-            <div className='header__image'>
+            <div className='header__image -mt-64'>
                 <img src={bannerImg} alt="banner image" />
             </div>
         </div>
