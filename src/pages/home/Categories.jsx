@@ -1,9 +1,9 @@
 import React from 'react'
 
-import category1 from "../../assets/TaiNghe/MoondropQuarks2/vn-11134207-7r98o-lzh5aheatrj564.jpg"
-import category2 from "../../assets/category-2.jpg"
-import category3 from "../../assets/category-3.jpg"
-import category4 from "../../assets/category-4.jpg"
+import category1 from "../../assets/SP/SP/TaiNghe/MoondropQuarks2/vn-11134207-7r98o-lzh5aheatrj564.jpg"
+import category2 from "../../assets/SP/SP/banphim/Logitech-G515-LightSpeed-TKL-Wireless-White/84607_ban_phim_co_logitech_g515_lightspeed_tkl_wireless_white_2.jpg"
+import category3 from "../../assets/SP/SP/VGA/1660/76492_3060dual_owhite__1_.jpg"
+import category4 from "../../assets/SP/SP/Mainboard/MainboardASROCK-B650M-Pro-RS-WIFI-DDR5/82274_mainboard_asrock_b650m_pro_rs_wifi_ddr5__2_.jpg"
 import { Link } from 'react-router-dom'
 
 const Categories = () => {
