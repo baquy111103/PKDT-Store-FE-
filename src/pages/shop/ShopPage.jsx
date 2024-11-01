@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import productsData from '../../data/products.json'
 import ProductCards from './ProductCards';
 import ShopFiltering from './ShopFiltering';
+import { useFetchAllProductsQuery } from '../../redux/features/products/productApi';
 
 const filters = {
-    categories: ['all', 'accessories', 'laptop', 'smartphone', 'PC'],
+    categories: ['all', 'headphone', 'laptop', 'keyboard', 'VGA'],
     colors: ['all', 'black', 'red', 'gold', 'blue', 'silver', 'beige', 'green'],
     priceRanges: [
         { label: 'Under $50', min: 0, max: 50 },
@@ -18,40 +19,26 @@ const filters = {
 
 
 const ShopPage = () => {
-    const [products, setProducts] = useState(productsData);
     const [filtersState, setFiltersState] = useState({
-        categories: 'all',
+        category: 'all',
         color: 'all',
-        priceRanges: ''
+        priceRange: ''
     });
 
-    //filltering function
-    const applyFilters = () => {
-        let filteredProducts = productsData;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [ProductsPerPage] = useState(8);
 
-        //filter by categories
-        if (filtersState.category && filtersState.category !== 'all') {
-            filteredProducts = filteredProducts.filter(product => product.category === filtersState.category)
-        }
+    const { category, color, priceRange } = filtersState;
+    const [minPrice, maxPrice] = priceRange.split('-').map(Number)
 
-        //filter by color
-        if (filtersState.color && filtersState.color !== 'all') {
-            filteredProducts = filteredProducts.filter(product => product.color === filtersState.color)
-        }
-
-        //filter by price range
-        if (filtersState.priceRanges) {
-            const [minPrice, maxPrice] = filtersState.priceRanges.split('-').map(Number);
-            filteredProducts = filteredProducts.filter(product => product.price >= minPrice && product.price <= maxPrice)
-        }
-
-        setProducts(filteredProducts)
-
-    }
-
-    useEffect(() => {
-        applyFilters()
-    }, [filtersState])
+    const { data: { products = [], totalPages, totalProducts } = {}, error, isLoading } = useFetchAllProductsQuery({
+        category: category !== 'all' ? category : '',
+        color: color !== 'all' ? color : '',
+        minPrice: isNaN(minPrice) ? '' : minPrice,
+        maxPrice: isNaN(maxPrice) ? '' : maxPrice,
+        page: currentPage,
+        limit: ProductsPerPage,
+    })
 
     //clear
     const clearFilters = () => {
@@ -61,6 +48,21 @@ const ShopPage = () => {
             priceRanges: ''
         })
     }
+
+    // Handle Page Change
+    const handlePageChange = (pageNumber) => {
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber)
+        }
+    }
+
+
+
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>Error loading products.</div>
+
+    const startProduct = (currentPage - 1) * ProductsPerPage + 1;
+    const endProduct = startProduct + products.length - 1;
 
     return (
         <>
@@ -80,8 +82,35 @@ const ShopPage = () => {
 
                     {/* Right side */}
                     <div>
-                        <h3 className='text-xl font-medium mb-4'>Product Available :{products.length}</h3>
+                        <h3 className='text-xl font-medium mb-4'>
+                            Showing {startProduct} to {endProduct} of {totalProducts} products
+                        </h3>
                         <ProductCards products={products} />
+
+                        {/* Pagination controls */}
+                        <div className='mt-6 flex justify-center'>
+                            <button
+                                disabled={currentPage === 1}
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2'>Previous</button>
+
+                            {
+                                [...Array(totalPages)].map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handlePageChange(index + 1)}
+                                        className={`px-4 py-2 ${currentPage === index + 1 ? 'bg-blue-500 text-white ' : 'bg-gray-300 text-gray-700'}
+                                        rounded-md mx-1    
+                                            `}
+                                    >{index + 1}</button>
+                                ))
+                            }
+
+                            <button
+                                disabled={currentPage === totalPages}
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2'>Next</button>
+                        </div>
                     </div>
                 </div>
             </section>

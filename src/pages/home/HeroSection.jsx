@@ -9,19 +9,19 @@ const cards = [
         id: 1,
         image: card1,
         trend: '2024 Trend',
-        title: 'Laptop',
+        title: 'Headphone',
     },
     {
         id: 2,
         image: card2,
         trend: '2024 Trend',
-        title: 'Accessories',
+        title: 'Keyboard',
     },
     {
         id: 3,
         image: card3,
         trend: '2024 Trend',
-        title: 'Smart Phone',
+        title: 'Main Board',
     }
 ]
 

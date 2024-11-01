@@ -10,7 +10,7 @@ const Categories = () => {
     const categories = [
         { name: 'Headphone ', path: 'headphone', image: category1 },
         { name: 'Keyboard', path: 'keyboard', image: category2 },
-        { name: 'VGA', path: 'vga', image: category3 },
+        { name: 'VGA', path: 'VGA', image: category3 },
         { name: 'Mainboard ', path: 'mainboard ', image: category4 },
     ]
     return (
