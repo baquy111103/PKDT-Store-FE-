@@ -14,7 +14,7 @@ const authApi = createApi({
                 url: "/register",
                 method: "POST",
                 body: newUser
-            })
+            }),
         }),
         loginUser: builder.mutation({
             query: (credentials) => ({
@@ -27,7 +27,7 @@ const authApi = createApi({
             query: () => ({
                 url: "/logout",
                 method: "POST"
-            })
+            }),
         }),
         getUser: builder.query({
             query: () => ({
