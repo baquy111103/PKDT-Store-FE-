@@ -54,7 +54,7 @@ const authApi = createApi({
             invalidatesTags: ["Users"],
         }),
         editProfile: builder.mutation({
-            uery: (profileData) => ({
+            query: (profileData) => ({
                 url: `/edit-profile`,
                 method: "PATCH",
                 body: profileData,
